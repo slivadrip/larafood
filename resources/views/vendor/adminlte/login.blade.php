@@ -78,14 +78,11 @@
                         </div>
                     </div>
                 </form>
-                @if ($password_reset_url)
-                    <p class="mt-2 mb-1">
-                        <a href="{{ $password_reset_url }}">
-                            {{ __('adminlte::adminlte.i_forgot_my_password') }}
-                        </a>
-                    </p>
-                @endif
-                
+                <p class="mt-2 mb-1">
+                    <a href="{{ $password_reset_url }}">
+                        {{ __('adminlte::adminlte.i_forgot_my_password') }}
+                    </a>
+                </p>
                 @if ($register_url)
                     <p class="mb-0">
                         <a href="{{ $register_url }}">

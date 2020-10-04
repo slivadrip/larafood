@@ -26,13 +26,7 @@
         <div class="lockscreen-name">{{{ isset(Auth::user()->name) ? Auth::user()->name : Auth::user()->email }}}</div>
 
         <div class="lockscreen-item">
-            @if(config('adminlte.usermenu_image'))
-            <div class="lockscreen-image">
-                <img src="{{ Auth::user()->adminlte_image() }}" alt="{{ Auth::user()->name }}">
-            </div>
-            @endif
-
-            <form method="POST" action="{{ route('password.confirm') }}" class="lockscreen-credentials @if(!config('adminlte.usermenu_image'))ml-0 @endif">
+            <form method="POST" action="{{ route('password.confirm') }}" class="lockscreen-credentials ml-0">
                 @csrf
                 <div class="input-group">
                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="{{ __('adminlte::adminlte.password') }}" autofocus>

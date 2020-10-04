@@ -2,7 +2,25 @@
 
 namespace App\Providers;
 
+use App\Models\{
+    Category,
+    Client,
+    Plan,
+    Product,
+    Table,
+    Tenant
+};
+use App\Observers\{
+    CategoryObserver,
+    ClientObserver,
+    PlanObserver,
+    ProductObserver,
+    TableObserver,
+    TenantObserver
+};
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+
 use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,5 +44,21 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
+        Plan::observe(PlanObserver::class);
+        Tenant::observe(TenantObserver::class);
+        Category::observe(CategoryObserver::class);
+        Product::observe(ProductObserver::class);
+        Client::observe(ClientObserver::class);
+        Table::observe(TableObserver::class);
+
+
+        /**
+         * Custom If Statements
+         */
+        Blade::if('admin', function () {
+            $user = auth()->user();
+
+            return $user->isAdmin();
+        });
     }
 }

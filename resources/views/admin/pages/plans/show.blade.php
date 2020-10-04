@@ -1,33 +1,36 @@
 @extends('adminlte::page')
 
-@section('title', 'Detalhes do Plano ')
+@section('title', "Detalhes do plano {$plan->name}")
 
 @section('content_header')
-<h1>Detalhes do Plano <strong>{{ $plan->name }}</strong> </h1>
+    <h1>Detalhes do plano <b>{{ $plan->name }}</b></h1>
 @stop
 
 @section('content')
+    <div class="card">
+        <div class="card-body">
+            <ul>
+                <li>
+                    <strong>Nome: </strong> {{ $plan->name }}
+                </li>
+                <li>
+                    <strong>URL: </strong> {{ $plan->url }}
+                </li>
+                <li>
+                    <strong>Preço: </strong> R$ {{ number_format($plan->price, 2, ',', '.') }}
+                </li>
+                <li>
+                    <strong>Descrição: </strong> {{ $plan->description }}
+                </li>
+            </ul>
 
-<div class="card">
-    <div class="card-body">
-        <ul>
-            <li><strong>Nome:</strong>{{ $plan->name }}</li>
+            @include('admin.includes.alerts')
 
-
-            <li><strong>Preço:</strong>R$ {{ number_format($plan->price, 2,',','.') }}</li>
-
-            <li><strong>URL:</strong>{{ $plan->url }}</li>
-
-            <li><strong>Descrição:</strong>{{ $plan->description }}</li>
-
-        </ul>
-
-    <form action="{{ route('plans.destroy', $plan->url )}}" method="POST">
-        @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-danger">Deletar Plano {{ $plan->name }}</button>
-        </form>
+            <form action="{{ route('plans.destroy', $plan->url) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> DELETAR O PLANO {{ $plan->name }}</button>
+            </form>
+        </div>
     </div>
-</div>
-
-@stop
+@endsection
